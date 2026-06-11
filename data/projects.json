@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "music-tracker",
+    "title": "作曲トラッカー",
+    "color": "cyan",
+    "icon": "ti ti-music",
+    "thumbLabel": "MUSIC TRACKER",
+    "description": "直感的な楽曲デモ進捗管理アプリ。楽曲の制作進捗をシンプルに記録・管理できます。",
+    "tags": ["Java", "Spring Boot", "Vue", "Thymeleaf", "MySQL", "Docker", "HTML"],
+    "siteUrl": "https://music-tracker-105d.onrender.com/songs",
+    "githubUrl": "https://github.com/ShotaArakawa/music-tracker",
+    "wip": false
+  },
+  {
+    "slug": "map-app",
+    "title": "地図アプリ",
+    "color": "green",
+    "icon": "ti ti-map-pin",
+    "thumbLabel": "MAP APP",
+    "description": "地図上でクリックした場所にピンを立てて、保存できるアプリ。場所のメモや記録に使えます。",
+    "tags": ["Vue", "Jersey", "PostgreSQL", "GIS"],
+    "siteUrl": null,
+    "githubUrl": null,
+    "wip": true
+  }
+]
