@@ -5,7 +5,7 @@
     "color": "cyan",
     "icon": "ti ti-music",
     "thumbLabel": "MUSIC TRACKER",
-    "description": "直感的な楽曲デモ進捗管理アプリ。楽曲の制作進捗をシンプルに記録・管理できます。",
+    "description": "直感的な楽曲デモ進捗管理アプリ。楽曲の制作進捗をシンプルに記録・管理できます。作曲支援機能も搭載してます。",
     "tags": ["Java", "Spring Boot", "Vue", "Thymeleaf", "MySQL", "Docker", "HTML"],
     "siteUrl": "https://music-tracker-105d.onrender.com/songs",
     "githubUrl": "https://github.com/ShotaArakawa/music-tracker",
@@ -19,9 +19,9 @@
     "thumbLabel": "MAP APP",
     "description": "地図上でクリックした場所にピンを立てて、保存できるアプリ。場所のメモや記録に使えます。",
     "tags": ["Vue", "Jersey", "PostgreSQL", "GIS"],
-    "siteUrl": null,
-    "githubUrl": null,
-    "wip": true
+    "siteUrl": "https://map-app-ashy-xi.vercel.app",
+    "githubUrl": "https://github.com/ShotaArakawa/map-app",
+    "wip": false
   },
   {
   "slug": "portfolio-site",
