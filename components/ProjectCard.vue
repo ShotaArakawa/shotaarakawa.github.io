@@ -1,5 +1,11 @@
 <template>
   <div class="card" :style="cardStyle">
+    <!-- Full-card overlay link; action buttons sit above it via z-index -->
+    <NuxtLink
+      :to="`/projects/${project.slug}`"
+      class="card-link"
+      :aria-label="`${project.title}の詳細を見る`"
+    />
     <div class="card-thumb">
       <div class="thumb-inner">
         <i :class="project.icon" />
@@ -9,7 +15,7 @@
     </div>
     <div class="card-body">
       <div class="card-head">
-        <NuxtLink :to="`/projects/${project.slug}`" class="card-title">{{ project.title }}</NuxtLink>
+        <span class="card-title">{{ project.title }}</span>
         <div class="card-actions">
           <span v-if="project.wip" class="wip-badge">
             <i class="ti ti-tool" style="font-size: 10px" />
@@ -71,12 +77,19 @@ const cardStyle = computed(() => ({
 
 <style scoped>
 .card {
+  position: relative;
   border: 0.5px solid var(--border);
   border-radius: 14px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: border-color 0.22s, transform 0.22s;
+}
+
+.card-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
 
 .card:hover {
@@ -148,15 +161,11 @@ const cardStyle = computed(() => ({
   font-size: 14px;
   font-weight: 500;
   color: var(--text);
-  text-decoration: none;
-  transition: color 0.18s;
-}
-
-.card-title:hover {
-  color: var(--card-accent);
 }
 
 .card-actions {
+  position: relative;
+  z-index: 2;
   display: flex;
   gap: 4px;
   align-items: center;
