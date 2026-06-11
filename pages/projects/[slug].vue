@@ -70,6 +70,15 @@
               <span v-for="tag in project.tags" :key="tag" class="ctag">{{ tag }}</span>
             </div>
 
+            <!-- README -->
+            <template v-if="readmeHtml">
+              <div class="sec-header" style="margin-top: 40px">
+                <span class="sec-label">readme</span>
+                <div class="sec-line" />
+              </div>
+              <div class="readme prose" v-html="readmeHtml" />
+            </template>
+
           </div>
         </div>
 
@@ -80,6 +89,7 @@
 </template>
 
 <script setup lang="ts">
+import { marked } from 'marked'
 import type { Project } from '~/types'
 import projectsData from '~/data/projects.json'
 
@@ -110,6 +120,26 @@ const accentBd     = c.bd
 const thumbFadeBg  = c.bg
 
 const pageStyle = { '--card-accent': c.accent, '--card-dim': c.dim, '--card-bd': c.bd }
+
+const repoPath = project.githubUrl
+  ? project.githubUrl.match(/github\.com\/(.+?)(?:\.git)?\/?$/)?.[1] ?? null
+  : null
+
+const { data: readmeHtml } = await useAsyncData(`readme-${project.slug}`, async () => {
+  if (!repoPath) return null
+  try {
+    const res = await $fetch<{ content: string }>(
+      `https://api.github.com/repos/${repoPath}/readme`,
+      { headers: { Accept: 'application/vnd.github+json' } }
+    )
+    const base64 = res.content.replace(/\n/g, '')
+    const bytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0))
+    const decoded = new TextDecoder('utf-8').decode(bytes)
+    return marked.parse(decoded) as string
+  } catch {
+    return null
+  }
+})
 </script>
 
 <style scoped>
@@ -324,5 +354,110 @@ article {
 .ctag:hover {
   color: var(--text-2);
   border-color: rgba(255, 255, 255, 0.22);
+}
+
+/* ── README prose ── */
+.readme {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text-2);
+}
+
+.readme :deep(h1),
+.readme :deep(h2),
+.readme :deep(h3),
+.readme :deep(h4) {
+  color: #e2e8f0;
+  font-weight: 500;
+  margin: 1.4em 0 0.5em;
+  line-height: 1.4;
+}
+
+.readme :deep(h1) { font-size: 18px; }
+.readme :deep(h2) { font-size: 15px; }
+.readme :deep(h3) { font-size: 13px; }
+
+.readme :deep(p) {
+  margin: 0.75em 0;
+}
+
+.readme :deep(a) {
+  color: v-bind(accentColor);
+  text-decoration: none;
+}
+
+.readme :deep(a:hover) {
+  text-decoration: underline;
+}
+
+.readme :deep(code) {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 0.5px solid var(--border-2);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.readme :deep(pre) {
+  background: rgba(0, 0, 0, 0.3);
+  border: 0.5px solid var(--border);
+  border-radius: 6px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  margin: 1em 0;
+}
+
+.readme :deep(pre code) {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 12px;
+}
+
+.readme :deep(ul),
+.readme :deep(ol) {
+  padding-left: 1.4em;
+  margin: 0.6em 0;
+}
+
+.readme :deep(li) {
+  margin: 0.3em 0;
+}
+
+.readme :deep(blockquote) {
+  border-left: 2px solid v-bind(accentBd);
+  padding-left: 12px;
+  margin: 1em 0;
+  color: var(--text-3);
+}
+
+.readme :deep(img) {
+  max-width: 100%;
+  border-radius: 4px;
+}
+
+.readme :deep(hr) {
+  border: none;
+  border-top: 0.5px solid var(--border);
+  margin: 1.5em 0;
+}
+
+.readme :deep(table) {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.readme :deep(th),
+.readme :deep(td) {
+  border: 0.5px solid var(--border);
+  padding: 6px 10px;
+  text-align: left;
+}
+
+.readme :deep(th) {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
 }
 </style>
