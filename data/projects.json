@@ -22,5 +22,16 @@
     "siteUrl": null,
     "githubUrl": null,
     "wip": true
+  },
+  {
+  "slug": "portfolio-site",
+  "title": "ポートフォリオサイト",
+  "color": "amber",
+  "icon": "ti ti-device-laptop",
+  "thumbLabel": "PORTFOLIO",
+  "description": "このポートフォリオサイト自体。Nuxt3 + Tailwind CSSで構築し、GitHub Pagesで公開。",
+  "tags": ["Nuxt3", "Vue", "TypeScript", "Tailwind CSS", "GitHub Pages"],
+  "siteUrl": "https://shotaarakawa.github.io",
+  "githubUrl": "https://github.com/ShotaArakawa/shotaarakawa.github.io"
   }
 ]
