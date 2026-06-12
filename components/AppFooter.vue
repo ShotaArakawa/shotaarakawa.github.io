@@ -2,7 +2,7 @@
   <footer>
     <div class="container">
       <p>
-        © 2025 Shota Arakawa &nbsp;·&nbsp;
+        © 2026 S.A &nbsp;·&nbsp;
         <a href="https://github.com/ShotaArakawa" target="_blank" rel="noopener">GitHub</a>
       </p>
     </div>

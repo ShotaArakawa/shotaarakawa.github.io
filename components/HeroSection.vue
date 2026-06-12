@@ -9,9 +9,10 @@
         <p class="hero-role">// Fullstack Engineer</p>
         <div class="name-row">
           <div class="avatar-wrap">
-            <img src="/profile.jpg" alt="荒川 奨太">
+            <!-- スキルシートで公開する際に個人情報保護のため、匿名にしている -->
+            <!-- <img src="/profile.jpg" alt="荒川 奨太"> -->
           </div>
-          <h1 class="hero-name">荒川 奨太</h1>
+          <h1 class="hero-name">S.A</h1>
         </div>
         <p class="hero-bio">
           フルスタックエンジニア。Javaを軸に、Androidアプリケーション開発から、Web開発まで幅広い技術スタックを持っています。チーム開発・個人開発どちらも経験あり。
