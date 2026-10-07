@@ -100,6 +100,9 @@ pnpm run deploy
 | `cyan`  | シアン（`#22d3ee`）   |
 | `green` | グリーン（`#4ade80`） |
 | `amber` | アンバー（`#f59e0b`） |
+| `violet` | バイオレット（`#a78bfa`） |
+| `rose`  | ローズ（`#fb7185`）   |
+| `blue`  | ブルー（`#60a5fa`）   |
 
 **`wip: true` にすると** サイトURL・GitHubリンクが非表示になり、`coming soon` バッジが表示されます。
 

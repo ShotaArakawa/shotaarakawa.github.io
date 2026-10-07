@@ -109,6 +109,9 @@ const colorMap = {
   cyan:  { bg: '#0d1a22', accent: '#22d3ee', dim: 'rgba(34,211,238,0.12)', bd: 'rgba(34,211,238,0.22)' },
   green: { bg: '#0f1a14', accent: '#4ade80', dim: 'rgba(74,222,128,0.10)', bd: 'rgba(74,222,128,0.20)' },
   amber: { bg: '#140f0a', accent: '#f59e0b', dim: 'rgba(245,158,11,0.10)', bd: 'rgba(245,158,11,0.20)' },
+  violet: { bg: '#15111f', accent: '#a78bfa', dim: 'rgba(167,139,250,0.10)', bd: 'rgba(167,139,250,0.22)' },
+  rose:  { bg: '#1a0f13', accent: '#fb7185', dim: 'rgba(251,113,133,0.10)', bd: 'rgba(251,113,133,0.22)' },
+  blue:  { bg: '#0e1420', accent: '#60a5fa', dim: 'rgba(96,165,250,0.10)',  bd: 'rgba(96,165,250,0.22)'  },
 }
 
 const c = colorMap[project.color]
@@ -128,14 +131,20 @@ const repoPath = project.githubUrl
 const { data: readmeHtml } = await useAsyncData(`readme-${project.slug}`, async () => {
   if (!repoPath) return null
   try {
-    const res = await $fetch<{ content: string }>(
+    const res = await $fetch<{ content: string; download_url: string; html_url: string }>(
       `https://api.github.com/repos/${repoPath}/readme`,
       { headers: { Accept: 'application/vnd.github+json' } }
     )
     const base64 = res.content.replace(/\n/g, '')
     const bytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0))
     const decoded = new TextDecoder('utf-8').decode(bytes)
-    return marked.parse(decoded) as string
+    const html = marked.parse(decoded) as string
+    // README 内の相対パス（docs/images/... 等）を GitHub 上の絶対 URL に変換
+    const resolve = (url: string, base: string) =>
+      /^([a-z][a-z0-9+.-]*:|#|\/\/)/i.test(url) ? url : new URL(url, base).href
+    return html
+      .replace(/(<img\b[^>]*?\bsrc=")([^"]+)"/g, (_, p, url) => `${p}${resolve(url, res.download_url)}"`)
+      .replace(/(<a\b[^>]*?\bhref=")([^"]+)"/g, (_, p, url) => `${p}${resolve(url, res.html_url)}"`)
   } catch {
     return null
   }

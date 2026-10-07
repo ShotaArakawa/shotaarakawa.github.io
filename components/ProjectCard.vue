@@ -62,6 +62,9 @@ const colorMap = {
   cyan:  { bg: '#0d1a22', accent: '#22d3ee', dim: 'rgba(34,211,238,0.12)',  bd: 'rgba(34,211,238,0.22)'  },
   green: { bg: '#0f1a14', accent: '#4ade80', dim: 'rgba(74,222,128,0.10)',  bd: 'rgba(74,222,128,0.20)'  },
   amber: { bg: '#140f0a', accent: '#f59e0b', dim: 'rgba(245,158,11,0.10)', bd: 'rgba(245,158,11,0.20)' },
+  violet: { bg: '#15111f', accent: '#a78bfa', dim: 'rgba(167,139,250,0.10)', bd: 'rgba(167,139,250,0.22)' },
+  rose:  { bg: '#1a0f13', accent: '#fb7185', dim: 'rgba(251,113,133,0.10)', bd: 'rgba(251,113,133,0.22)' },
+  blue:  { bg: '#0e1420', accent: '#60a5fa', dim: 'rgba(96,165,250,0.10)',  bd: 'rgba(96,165,250,0.22)'  },
 }
 
 const c = computed(() => colorMap[props.project.color])
